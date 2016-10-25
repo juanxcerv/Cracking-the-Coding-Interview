@@ -1,0 +1,75 @@
+/* (big O) describes an upper bound on the time. For example the algorithm to print out items in an array can be described as O(n) where
+n is the number of elements in the array , but it can also be O(n^2) or O(2^n). 
+
+(big omega) describes the lower bound on the time. Same example as above it can be omega(N), omega(logn), or omega(1) since it wont be
+faster than any of those runtimes
+
+(big theta) is both omega and O. An algorithm that is O(N) and omega(N) is theta(N) */
+
+Space Complexity
+
+/* to make an array you need O(N) space, to make a two dimmension array you need O(N^2) space. Stack space on recursive calls counts too
+For example: */
+
+int sum(int) {
+    if (n <= 0) {
+        return 0;
+    } else {
+        return n + sum(n-1);
+    }
+}
+ /* Each call adds a level to the Stack
+sum(4)
+    sum(3)
+        sum(2)
+            sum(1)
+                sum(0)
+and takes up memory! */
+
+// However just because you have n calls total doesnt mean it takes up that much space. Consider the following:
+
+int pairSumSequence(int n) {
+    int sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += pairSum(i, i + 1);
+}
+
+int pairSum(int a, int b) {
+    return a + b;
+}
+/* Both functions above do the same thing, but take up different ammounts of space. Try to learn the more efficient! The second one 
+executes with each call so that there is no need to store all the calls at once */
+
+Multi-Part Algorithms: Add Versus Multiply
+
+/* if your algorithm is in the form " do this, then when youre all done, do that" then you add. 
+    if your algorithm is in the form " do this for each time you do that" then you multiply. */ 
+
+Add The Runtimes: O(A + B)
+    for (int a : arrA) {
+        print(a);
+    }
+    for (int b : arrB) {
+        print(B);
+    }
+Multiply The Runtimes: O(A*B) 
+    for (int a : arrA) {
+        for (int b : arrB) {
+            print(a + ',' + b);
+        }
+    }
+
+Amortized Time:
+/* The concept that yes worst case will happen, but once it does then it won't happen again for some time. For insertion into an array
+that doubles in size once the capacity is reached the runtime is O(2X) where X is number of insertions. The amortized time for each 
+insertion is O(1). */
+
+
+
+
+
+
+
+
+
+

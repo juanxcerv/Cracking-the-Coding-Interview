@@ -1,0 +1,129 @@
+Hash Tables
+/* Hash table is a data structure that maps keys to values for high efficient lookup. In this example an array of linked lists and a
+hash code function is used. To insert a key which might be a string or any other data type and value do the following:
+
+1. Compute the key's hash code. Two keys could have the same hash code. 
+2. Map the hash code to an index in the array. This could be done like this hash(key) % array_length. 
+3. At the index above there is a linked list of keys and values. Store the key and value at this index. Linked lists are used to avoid
+collisions (two keys having the same hash code or two different hash codes mapping to the same index.) */ 
+
+ArrayList And Resizeable Arrays: 
+/* An ArrayList is an array that resizes itself as needed while still prividing O(1) access. It doubles itself and so the amortized time 
+is still O(1). */ 
+
+ArrayList<String> merge(String[] words, String[] more) {
+    ArrayList<String> sentence = new ArrayList<String>();
+    for (String w: words) sentence.add(w);
+    for (String w: more) sentence.add(w);
+    return sentence;
+}
+StringBuilder 
+/* Imagine concactinating a list of strings. What would runtime be? Assume that the strings are all the same length(x) and there are n 
+strings. */ 
+
+String joinWords(String[] words) {
+    String sentence = "";
+    for(String w : words) {
+        sentence += w;
+    }
+    return sentence;
+}
+/* On each concatenation a new copy of the string is created, and the two strings are copied over, character by character.
+The first iteration is x characters. The second is 2x. Third is 3x and so on intil we get a total runtime of O(xn^2). A better solution
+is privided below which makes an array styles data structure that u can append to and convert to string if needed at the end. */ 
+
+String joinWords(String[] words) {
+    StringBuilder sentence = new StringBuilder();
+    for (String w: words) {
+        sentence.append(w);
+    }
+    return sentence.toString();
+}
+
+Interview Questions:
+
+1.1 Is Unique:
+
+/* Implement an algorithm to determine if a string has all unique characters. WHat if you cannot use additional data structures? */ 
+/* My answer that doesn't use additional data structures' */
+boolean isUnique(String input) {
+    for (int i = 0; i < input.length() ; i++) {
+        for(int j = 0; j < input.length(); j++) {
+            if (i == j) {
+                continue;
+            } else if (input.charAt(i).equals(input.charAt(j))){
+                return false;
+            }
+        }
+    }
+    return true;
+  }
+}
+/* Book's answer for efficiency without using bits. This uses an array of booleans per each character. The idea is to iterate through
+each character in the string and set the index corresponding to it in the ASCII character array equal to true.  Each iteration 
+checks to see if the character has already been used.  */
+
+boolean isUnique(String str) {
+    if (str.length() > 128) return false;
+    /* Uses 128 characters from ASCII */
+     boolean[] char_set = new boolean[128];
+     for (int i = 0; i < str.length(); i++){
+         int val = str.charAt(i);
+         if (char_set[val]) {
+             return false;
+         }
+         char_set[val] = true;
+     }
+     return true;
+}
+
+1.2 Check Permutation
+/* Given two strings, write a method to decide if one is a permutation of the other */
+
+boolean isPermutation(String str1, String str2) {
+    if (str1.length() != str2.length()) return false;
+    StringBuilder string1 = new StringBuilder(str1);
+    for (int i = 0; i < str2.length; i++) {
+        if (string1.toString().contains(str2.charAt(i))) {
+            string1.deleteCharAt(string1.indexOf(str2.charAt(i)));
+        }
+        else return false;
+    }
+    return true;
+}
+
+/*  The method above used the stringbuilder data structure so that I could be able to alter the list by deleting occurences that were found
+in the second string. This was done to be able to eliminate the possiblity of string 2 having multiple character occurences and string 1
+not having as many. The code below is the books solution at uses an array of integers with 128 spaces, representing the characters in
+ASCII. The idea is to increment on all the occurences found in string 1 and decrement on occurences is string 2. If any are negative or 0
+that means that the string was either not found in string 1 or there were too many occurences. */
+
+boolean isPermutation(String str1, String str2) {
+    if (str1.length() != str2.length()) return false;
+
+    int[] char_set = new int[128];
+    for (int i = 0; i < str1.length(); i++){
+        char_set[str1.charAt(i)]++;
+    }
+    for (int j = 0; j < str2.length(); j++){
+        char_set[str2.charAt(j)]--;
+        if (char_set[str2.charAt(j)] > 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+1.3 Urlify
+
+/* Write a method to replace all spaces in a string with "%20". You may assume that the string has sufficient space at the end to hold
+the additional characters, and that you are given the true length of the string . Use a character array so that you can perform this 
+operation in place. */ 
+
+Add 2 to index of each space after the first occurence 
+
+String urlify(String s) {
+    
+
+
+}
